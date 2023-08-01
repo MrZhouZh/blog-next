@@ -2,11 +2,11 @@ import * as cheerio from 'cheerio'
 import { ImageResponse, type NextRequest, NextResponse } from "next/server";
 
 const faviconMapper: { [key: string]: string } = {
-  // '(?:github.com)': 'https://cali.so/favicons/github.png',
-  // '((?:t.co)|(?:twitter.com))': 'https://cali.so/favicons/twitter.png',
-  // 'coolshell.cn': 'https://cali.so/favicons/coolshell.png',
-  // 'vercel.com': 'https://cali.so/favicons/vercel.png',
-  // 'nextjs.org': 'https://cali.so/favicons/nextjs.png',
+  '(?:github.com)': 'https://cdn.jsdelivr.net/gh/MrZhouZh/image-lit/blog/github.png',
+  '((?:t.co)|(?:twitter.com))': 'https://cdn.jsdelivr.net/gh/MrZhouZh/image-lit/blog/twitter.png',
+  'coolshell.cn': 'https://cdn.jsdelivr.net/gh/MrZhouZh/image-lit/blog/coolshell.png',
+  'vercel.com': 'https://cdn.jsdelivr.net/gh/MrZhouZh/image-lit/blog/vercel.png',
+  'nextjs.org': 'https://cdn.jsdelivr.net/gh/MrZhouZh/image-lit/blog/nextjs.png',
 }
 
 function getPredefinedIconForUrl(url: string): string | undefined {
@@ -15,7 +15,6 @@ function getPredefinedIconForUrl(url: string): string | undefined {
       `^(?:https?:\/\/)?(?:[^@/\\n]+@)?(?:www.)?` + regexStr
     )
     if (regex.test(url)) {
-      console.log('faviconMapper[regexStr]:', faviconMapper[regexStr]);
       return faviconMapper[regexStr]!
     }
   }
@@ -26,8 +25,6 @@ function getPredefinedIconForUrl(url: string): string | undefined {
 const width = 32
 const height = width
 function renderFavicon(url: string) {
-  console.log({ url });
-  
   return new ImageResponse(
     (
       <img src={url} alt={`${url} icon`} width={width} height={height} />
